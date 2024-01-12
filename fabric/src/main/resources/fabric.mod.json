@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "create_copycat",
+  "version": "${version}",
+
+  "name": "Create Copycat",
+  "description": "A create addon that just adds many variations on the copycat block",
+  "authors": [],
+  "contact": {},
+
+  "license": "MIT",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "create_copycat.mixins.json",
+    "create_copycat-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.3",
+    "minecraft": ">=1.19.2"
+  }
+}
