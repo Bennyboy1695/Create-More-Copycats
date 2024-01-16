@@ -25,14 +25,10 @@ architectury {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
     modImplementation("com.tterrag.registrate:Registrate:${forge_registrate_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${forge_flywheel_minecraft_version}:${forge_flywheel_version}")
     modImplementation("com.simibubi.create:create-${forge_create_minecraft_version}:${forge_create_version}:slim") { transitive = false }
-    modRuntimeOnly("curse.maven:create-connected-947914:4991527")
-    modRuntimeOnly("curse.maven:framedblocks-441647:4762544")
 }
 
 sourceSets {

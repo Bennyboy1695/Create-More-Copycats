@@ -27,7 +27,7 @@ displayName="Create Copycat" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="icon.png" #optional
+logoFile="create_copycat_logo.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
 # A text field displayed in the mod UI
@@ -64,3 +64,11 @@ A create addon that just adds many variations on the copycat block
    versionRange="[1.19.2,1.20)"
    ordering="NONE"
    side="BOTH"
+
+[[dependencies.create_more_copycats]]
+modId="create"
+mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange="[0.5.1.f,)"
+ordering="AFTER"
+side="BOTH"

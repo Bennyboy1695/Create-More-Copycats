@@ -1,7 +1,6 @@
-package io.github.bennyboy1695.create_copycat.forge.block;
+package io.github.bennyboy1695.create_copycat.fabric.block;
 
 import com.simibubi.create.content.decoration.copycat.WaterloggedCopycatBlock;
-import io.github.bennyboy1695.create_copycat.forge.CreateMoreCopycatsForge;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -13,8 +12,6 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -24,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static io.github.bennyboy1695.create_copycat.forge.util.Shapes.*;
+import static io.github.bennyboy1695.create_copycat.fabric.util.Shapes.*;
 
 public class StairCopyCat extends WaterloggedCopycatBlock {
 
@@ -106,8 +103,24 @@ public class StairCopyCat extends WaterloggedCopycatBlock {
         return !toState.hasProperty(CONNECTS) || toState.getValue(CONNECTS);
     }
 
+    public static boolean isOccluded(BlockState state, BlockState other, Direction pDirection) {
+        state = state.setValue(WATERLOGGED, false);
+        other = other.setValue(WATERLOGGED, false);
+        Direction facing = state.getValue(FACING);
+        if (facing.getOpposite() == other.getValue(FACING) && pDirection == facing) return true;
+        if (other.getValue(FACING) != facing) return false;
+        return pDirection.getAxis() != facing.getAxis();
+    }
+
+    @Override
+    public boolean canFaceBeOccluded(BlockState state, Direction face) {
+        return state.getValue(FACING)
+                .getOpposite() == face;
+    }
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         if (pPlayer.isCrouching() && pPlayer.getItemInHand(pHand).equals(ItemStack.EMPTY)) {
             BlockState newState = pState;
             newState = newState.setValue(CONNECTS, !pState.getValue(CONNECTS));

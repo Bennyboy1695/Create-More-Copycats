@@ -1,9 +1,8 @@
-package io.github.bennyboy1695.create_copycat.forge.util;
+package io.github.bennyboy1695.create_copycat.fabric.util;
 
 import com.simibubi.create.foundation.utility.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.BiFunction;
@@ -12,8 +11,6 @@ import java.util.stream.IntStream;
 public class Shapes {
 
     public static final VoxelShaper SLAB = extraComplicated(0, 0, 0, 16, 8 , 16).forDirectional(Direction.UP);
-
-    public static final VoxelShaper CARPET = extraComplicated(0, 0, 0, 16, 1 , 16).forDirectional(Direction.UP);
     public static VoxelShape TOP_SLAB_AABB = Block.box(0.0, 8.0, 0.0, 16.0, 16.0, 16.0);
     public static VoxelShape BOTTOM_SLAB_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
     public static VoxelShape OCTET_NNN = Block.box(0.0, 0.0, 0.0, 8.0, 8.0, 8.0);

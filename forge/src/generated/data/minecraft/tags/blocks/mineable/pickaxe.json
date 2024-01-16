@@ -2,6 +2,8 @@
   "values": [
     "create_more_copycats:slab_copycat",
     "create_more_copycats:block_copycat",
-    "create_more_copycats:stair_copycat"
+    "create_more_copycats:stair_copycat",
+    "create_more_copycats:carpet_copycat",
+    "create_more_copycats:layer_copycat"
   ]
 }

@@ -4,3 +4,4 @@
 /fabric/build/
 /forge/.gradle/
 /forge/build/
+/forge/src/generated/.cache/

@@ -1,10 +1,10 @@
-package io.github.bennyboy1695.create_copycat.forge.block;
+package io.github.bennyboy1695.create_copycat.fabric.block;
 
 import com.simibubi.create.content.decoration.copycat.WaterloggedCopycatBlock;
 import com.simibubi.create.foundation.placement.IPlacementHelper;
 import com.simibubi.create.foundation.placement.PlacementHelpers;
 import com.simibubi.create.foundation.placement.PlacementOffset;
-import io.github.bennyboy1695.create_copycat.forge.register.ModBlocks;
+import io.github.bennyboy1695.create_copycat.fabric.register.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +30,7 @@ public class FullBlockCopyCat extends WaterloggedCopycatBlock {
 
     public static final BooleanProperty CONNECTS = CustomBlockProperties.CONNECTS;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final int placementHelperId = PlacementHelpers.register(new FullBlockCopyCat.PlacementHelper());
+    private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
 
     public FullBlockCopyCat(Properties pProperties) {
         super(pProperties);
@@ -57,6 +56,15 @@ public class FullBlockCopyCat extends WaterloggedCopycatBlock {
             newState = newState.setValue(CONNECTS, !pState.getValue(CONNECTS));
             pLevel.setBlock(pPos, newState, Block.UPDATE_ALL);
             return InteractionResult.SUCCESS;
+        }
+        if (!pPlayer.isShiftKeyDown() && pPlayer.mayBuild()) {
+            ItemStack heldItem = pPlayer.getItemInHand(pHand);
+            IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
+            if (placementHelper.matchesItem(heldItem)) {
+                placementHelper.getOffset(pPlayer, pLevel, pState, pPos, pHit)
+                        .placeInWorld(pLevel, (BlockItem) heldItem.getItem(), pPlayer, pHand, pHit);
+                return InteractionResult.SUCCESS;
+            }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }

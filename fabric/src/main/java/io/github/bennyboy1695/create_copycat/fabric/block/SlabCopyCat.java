@@ -1,11 +1,11 @@
-package io.github.bennyboy1695.create_copycat.forge.block;
+package io.github.bennyboy1695.create_copycat.fabric.block;
 
 import com.simibubi.create.content.decoration.copycat.WaterloggedCopycatBlock;
 import com.simibubi.create.foundation.placement.IPlacementHelper;
 import com.simibubi.create.foundation.placement.PlacementHelpers;
 import com.simibubi.create.foundation.placement.PlacementOffset;
-import io.github.bennyboy1695.create_copycat.forge.register.ModBlocks;
-import io.github.bennyboy1695.create_copycat.forge.util.Shapes;
+import io.github.bennyboy1695.create_copycat.fabric.register.ModBlocks;
+import io.github.bennyboy1695.create_copycat.fabric.util.Shapes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -35,9 +36,9 @@ public class SlabCopyCat extends WaterloggedCopycatBlock {
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty CONNECTS = CustomBlockProperties.CONNECTS;
-    private static final int placementHelperId = PlacementHelpers.register(new SlabCopyCat.PlacementHelper());
+    private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
 
-    public SlabCopyCat(Properties pProperties) {
+    public SlabCopyCat(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.UP).setValue(CONNECTS, true));
     }
@@ -94,6 +95,7 @@ public class SlabCopyCat extends WaterloggedCopycatBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         if (pPlayer.isCrouching() && pPlayer.getItemInHand(pHand).equals(ItemStack.EMPTY)) {
             BlockState newState = pState;
             newState = newState.setValue(CONNECTS, !pState.getValue(CONNECTS));
